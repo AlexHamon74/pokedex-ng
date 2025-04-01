@@ -12,5 +12,4 @@ export class SearchPipe implements PipeTransform {
         return pokemons.filter(pokemon =>
             pokemon.name.fr.toLowerCase().includes(terms.toLowerCase()));
     }
-
 }

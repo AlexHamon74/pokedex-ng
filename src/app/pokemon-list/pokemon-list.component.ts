@@ -5,11 +5,12 @@ import { PokemonTypeColorPipe } from '../assets/pipe/pokemon-type-color.pipe';
 import { PokemonService } from '../assets/service/pokemon.service';
 import { PokemonInterface, TypeInterface } from '../assets/entities';
 import { SearchPipe } from '../assets/pipe/search.pipe';
+import { FilterByTypePipe } from '../assets/pipe/filter-by-type.pipe';
 
 @Component({
     selector: 'app-pokemon-list',
     standalone: true,
-    imports: [CommonModule, PokemonTypeColorPipe, FormsModule, SearchPipe],
+    imports: [CommonModule, PokemonTypeColorPipe, FormsModule, SearchPipe, FilterByTypePipe],
     templateUrl: './pokemon-list.component.html',
     styleUrl: './pokemon-list.component.css'
 })
@@ -20,6 +21,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     pokemons: PokemonInterface[] = [];
     types: TypeInterface[] = [];
     searchTerm: string = '';
+    selectedType: string = 'all';
 
     // Récupère les pokémons et les types de pokémons
     ngOnInit(): void {

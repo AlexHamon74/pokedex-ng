@@ -1,16 +1,16 @@
 <section class="pokedex m-0">
     <h1 class="display-1 text-center m-0"><span class="titleSpan">Poké</span>dex</h1>
-    <!-- Formualires de filtres -->
+    <!-- Formulaires de filtres -->
     <div class="input-group justify-content-center input-sticky py-4">
         <div class="filtre">
             <input type="search" class="form-control py-3 rounded-0" placeholder="Dracaufeu ..." [(ngModel)]="searchTerm" />
             <!-- Select du type -->
-            <select class="form-select rounded-0" aria-label="Choisir un type de Pokemon">
+            <select class="form-select rounded-0" aria-label="Choisir un type de Pokemon" [(ngModel)]="selectedType">
                 <option selected value="all">Rechercher par type</option>
                 @for (type of types; track type.id) {
-                <option value="{{ type.name.fr }}" [ngValue]="type.id">
-                    {{ type.name.fr }}
-                </option>
+                    <option [value]="type.name.fr">
+                        {{ type.name.fr }}
+                    </option>
                 }
             </select>
             <!-- Input de recherche -->
@@ -24,7 +24,12 @@
         <div class="container">
             <div class="row">
                 <!-- Liste des pokémons dans des cartes -->
-                @for(pokemon of pokemons | search: searchTerm; track pokemon.pokedex_id) {
+                @if((pokemons | filterByType: selectedType | search: searchTerm).length === 0) {
+                    <div class="col-12 text-center">
+                        <h4 class="text-muted">Aucun Pokémon trouvé.</h4>
+                    </div>
+                }
+                @for(pokemon of pokemons | filterByType: selectedType | search: searchTerm; track pokemon.pokedex_id) {
                     <div class="col-lg-4 col-6">
                         <div class="carte mb-4 {{ pokemon.types[0].name | pokemonTypeColor }}">
                             <div class="top d-flex justify-content-between align-items-center">
