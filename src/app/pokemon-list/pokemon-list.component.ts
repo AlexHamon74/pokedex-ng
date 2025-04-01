@@ -6,6 +6,7 @@ import { PokemonService } from '../assets/service/pokemon.service';
 import { PokemonInterface, TypeInterface } from '../assets/entities';
 import { SearchPipe } from '../assets/pipe/search.pipe';
 import { FilterByTypePipe } from '../assets/pipe/filter-by-type.pipe';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-pokemon-list',
@@ -18,6 +19,8 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
     // Injection du service et initialisation des variables
     pokemonService = inject(PokemonService);
+    router = inject(Router);
+
     pokemons: PokemonInterface[] = [];
     types: TypeInterface[] = [];
     searchTerm: string = '';
@@ -39,4 +42,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
         this.types = [];
     }
 
+    showMore(pokedexId: number) {
+        this.router.navigate(['/pokemons', pokedexId]);
+    }
 }

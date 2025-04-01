@@ -12,6 +12,7 @@ export class PokemonService {
 
     url = "https://tyradex.vercel.app/api/v1/gen/1";
     urlType = "https://tyradex.vercel.app/api/v1/types";
+    urlDetail = "https://tyradex.vercel.app/api/v1/pokemon";
 
     // Récupère tous les pokémons   
     fetchAllPokemons(): Observable<PokemonInterface[]> {
@@ -21,5 +22,15 @@ export class PokemonService {
     // Récupère tous les types de pokémons
     fetchAllTypes(): Observable<TypeInterface[]> {
         return this.http.get<TypeInterface[]>(this.urlType);
+    }
+
+    // Récupère un pokémon par son id
+    fetchById(id: any) {
+        return this.http.get<PokemonInterface>(`${this.urlDetail}/${id}`);
+    }
+
+    // Récupère un pokémon par son pokedex_id
+    fetchByPokedexId(pokedexId: number): Observable<PokemonInterface> {
+        return this.http.get<PokemonInterface>(`${this.urlDetail}/${pokedexId}`);
     }
 }

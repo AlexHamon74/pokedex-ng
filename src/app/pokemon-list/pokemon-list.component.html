@@ -31,7 +31,7 @@
                 }
                 @for(pokemon of pokemons | filterByType: selectedType | search: searchTerm; track pokemon.pokedex_id) {
                     <div class="col-lg-4 col-6">
-                        <div class="carte mb-4 {{ pokemon.types[0].name | pokemonTypeColor }}">
+                        <div (click)="showMore(pokemon.pokedex_id)" class="carte mb-4 {{ pokemon.types[0].name | pokemonTypeColor }}">
                             <div class="top d-flex justify-content-between align-items-center">
                                 <h3>#{{pokemon.pokedex_id}}</h3>
                                 <div class="types">

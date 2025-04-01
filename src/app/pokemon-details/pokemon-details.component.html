@@ -1,0 +1,110 @@
+<!-- Header -->
+<section class="header {{ pokemon.types[0].name | pokemonBgColor }}">
+    <i class="fa-solid fa-arrow-left arrow-back" (click)="back()"></i>
+    <img [src]="isShiny ? pokemon.sprites.shiny : pokemon.sprites.regular" class="img-fluid" alt="Image de {{ pokemon.name.fr}}">
+    <div class="shiny">
+        <button (click)="toggleshiny()">
+            <img src="https://cdn-icons-png.flaticon.com/256/2267/2267359.png" alt="Bouton pousser le pokemon en version shiny">
+        </button>
+    </div>
+</section>
+
+<div class="container">
+    <h1 class="my-5 text-center">{{pokemon.name.fr}}</h1>
+
+    <!-- Types -->
+    <div class="row text-center justify-content-center mb-4">
+        @for(type of pokemon.types; track type.name) {
+            <div class="col-2">
+                <img src="{{type.image}}" alt="Image du type {{type.name}}">
+                <h4>{{type.name}}</h4>
+            </div>
+        }
+    </div>
+
+    <!-- Taille et poids -->
+    <div class="row text-center justify-content-center mb-4">
+        <div class="col-6">
+            <h4>{{pokemon.weight}}</h4>
+            <h4>POIDS</h4>
+        </div>
+        <div class="col-6">
+            <h4>{{pokemon.height}}</h4>
+            <h4>TAILLE</h4>
+        </div>
+    </div>
+
+    <!-- Statistiques -->
+    <div class="row text-center justify-content-center mb-4 border-bottom">
+        <h2 class="mb-4">STATISTIQUES</h2>
+
+        <div class="d-flex justify-content-center mb-3">
+            <div class="col-4">
+                <h4>Point de vie</h4>
+            </div>
+            <div class="col-8">
+                <div class="progress-container">
+                    <div class="progress-bar-hp" [style.width.%]="calculatePercentage(pokemon.stats.hp)"></div>
+                    <div class="progress-text">{{ pokemon.stats.hp }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <div class="col-4">
+                <h4>Attaque</h4>
+            </div>
+            <div class="col-8">
+                <div class="progress-container">
+                    <div class="progress-bar-atk" [style.width.%]="calculatePercentage(pokemon.stats.atk)"></div>
+                    <div class="progress-text">{{ pokemon.stats.atk }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <div class="col-4">
+                <h4>Défense</h4>
+            </div>
+            <div class="col-8">
+                <div class="progress-container">
+                    <div class="progress-bar-def" [style.width.%]="calculatePercentage(pokemon.stats.def)"></div>
+                    <div class="progress-text">{{ pokemon.stats.def }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <div class="col-4">
+                <h4>Attaque spéciale</h4>
+            </div>
+            <div class="col-8">
+                <div class="progress-container">
+                    <div class="progress-bar-atk-spe" [style.width.%]="calculatePercentage(pokemon.stats.spe_atk)">
+                    </div>
+                    <div class="progress-text">{{ pokemon.stats.spe_atk }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <div class="col-4">
+                <h4>Défense spéciale</h4>
+            </div>
+            <div class="col-8">
+                <div class="progress-container">
+                    <div class="progress-bar-def-spe" [style.width.%]="calculatePercentage(pokemon.stats.spe_def)">
+                    </div>
+                    <div class="progress-text">{{ pokemon.stats.spe_def }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <div class="col-4">
+                <h4>Vitesse</h4>
+            </div>
+            <div class="col-8">
+                <div class="progress-container">
+                    <div class="progress-bar-vit" [style.width.%]="calculatePercentage(pokemon.stats.vit)"></div>
+                    <div class="progress-text">{{ pokemon.stats.vit }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
