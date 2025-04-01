@@ -107,4 +107,36 @@
             </div>
         </div>
     </div>
+
+    <!-- Evolutions -->
+    <div class="row mb-4 justify-content-center text-center">
+        @if(!pokemon.evolution) {
+            <h4 class="">Pas d'évolution</h4>
+        } @else {        
+            <h2 class="mb-5">Evolutions</h2>
+            <div class="col-sm-4 col-12" *ngFor="let pre of pokemon.evolution.pre">
+                <a [routerLink]="['/pokemons', pre.pokedex_id]">
+                    <div class="evolution">
+                        <h4>{{ pre.name }}</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-4 col-12">
+                <div class="evolution">
+                    <a [routerLink]="['/pokemons', pokemon.pokedex_id]">
+                        <h4>{{ pokemon.name.fr }}</h4>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-12" *ngFor="let next of pokemon.evolution.next">
+                <div class="evolution">
+                    <a [routerLink]="['/pokemons', next.pokedex_id]">
+                        <h4>{{ next.name }}</h4>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+
 </div>

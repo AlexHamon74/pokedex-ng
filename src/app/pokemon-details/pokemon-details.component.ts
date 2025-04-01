@@ -1,8 +1,10 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { PokemonBgColorPipe } from '../assets/pipe/pokemon-bg-color.pipe';
 import { PokemonService } from '../assets/service/pokemon.service';
+import { Subscription } from 'rxjs';
+import { PokemonInterface } from '../assets/entities';
 
 @Component({
     selector: 'app-pokemon-details',
@@ -15,20 +17,43 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
 
     // Injection du service et initialisation des variables
     service = inject(PokemonService);
+    router = inject(Router);
+
     isShiny: boolean = false;
-    pokemon: any; // Variable pour stocker les détails du Pokémon
+    pokemon!: PokemonInterface;
     private location = inject(Location);
     private route = inject(ActivatedRoute);
+    private paramsSubscription: any;
+    private dataPokemonDetail!: Subscription;
+
 
     ngOnInit(): void {
-        const pokedexId = this.route.snapshot.params['id'];
-        this.service.fetchByPokedexId(pokedexId).subscribe(data => {
-            this.pokemon = data;
+        this.route.paramMap.subscribe(() => {
+            this.getPokemonDetails();
         });
     }
 
     ngOnDestroy(): void {
+        if (this.paramsSubscription) {
+            this.paramsSubscription.unsubscribe();
+        }
+    }
 
+    // Fonction pour récupérer les détails du pokemon
+    getPokemonDetails() {
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+            this.dataPokemonDetail = this.service.fetchById(id).subscribe(
+                data => {
+                    if (data && data.status !== 404) {
+                        this.pokemon = data;
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        this.router.navigate(['/404']);
+                    }
+                }
+            );
+        }
     }
 
     // Fonction pour afficher l'image du pokemon en skiny
