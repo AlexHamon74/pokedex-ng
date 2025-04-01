@@ -1,1 +1,50 @@
-<p>pokemon-list works!</p>
+<section class="pokedex m-0">
+    <h1 class="display-1 text-center m-0"><span class="titleSpan">Poké</span>dex</h1>
+    <!-- Formualires de filtres -->
+    <div class="input-group justify-content-center input-sticky py-4">
+        <div class="filtre">
+            <input type="search" class="form-control py-3 rounded-0" placeholder="Dracaufeu ..." [(ngModel)]="searchTerm" />
+            <!-- Select du type -->
+            <select class="form-select rounded-0" aria-label="Choisir un type de Pokemon">
+                <option selected value="all">Rechercher par type</option>
+                @for (type of types; track type.id) {
+                <option value="{{ type.name.fr }}" [ngValue]="type.id">
+                    {{ type.name.fr }}
+                </option>
+                }
+            </select>
+            <!-- Input de recherche -->
+            <span class="input-group-text rounded-0" id="search-addon">
+                <i class="fas fa-search"></i>
+            </span>
+        </div>
+    </div>
+
+    <section class="main my-5">
+        <div class="container">
+            <div class="row">
+                <!-- Liste des pokémons dans des cartes -->
+                @for(pokemon of pokemons | search: searchTerm; track pokemon.pokedex_id) {
+                    <div class="col-lg-4 col-6">
+                        <div class="carte mb-4 {{ pokemon.types[0].name | pokemonTypeColor }}">
+                            <div class="top d-flex justify-content-between align-items-center">
+                                <h3>#{{pokemon.pokedex_id}}</h3>
+                                <div class="types">
+                                    @for(type of pokemon.types; track type.name) {
+                                        <img src="{{type.image}}" alt="Image de {{pokemon.name.fr}}">
+                                    }
+                                </div>
+                            </div>
+                            <div class="middle">
+                                <img src="{{pokemon.sprites.regular}}" class="mb-4" alt="">
+                            </div>
+                            <div class="bottom">
+                                <h2 class="text-center mt-4">{{pokemon.name.fr}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</section>
