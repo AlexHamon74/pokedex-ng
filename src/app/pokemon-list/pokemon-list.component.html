@@ -36,12 +36,12 @@
                                 <h3>#{{pokemon.pokedex_id}}</h3>
                                 <div class="types">
                                     @for(type of pokemon.types; track type.name) {
-                                        <img src="{{type.image}}" alt="Image de {{pokemon.name.fr}}">
+                                        <img [src]="type.image" [attr.alt]="'Image du type ' + type.name">
                                     }
                                 </div>
                             </div>
                             <div class="middle">
-                                <img src="{{pokemon.sprites.regular}}" class="mb-4" alt="">
+                                <img [src]="pokemon.sprites.regular" class="mb-4" [attr.alt]="'Image de ' + pokemon.name.fr">
                             </div>
                             <div class="bottom">
                                 <h2 class="text-center mt-4">{{pokemon.name.fr}}</h2>

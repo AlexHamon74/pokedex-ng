@@ -1,7 +1,7 @@
 <!-- Header -->
 <section class="header {{ pokemon.types[0].name | pokemonBgColor }}">
     <i class="fa-solid fa-arrow-left arrow-back" (click)="back()"></i>
-    <img [src]="isShiny ? pokemon.sprites.shiny : pokemon.sprites.regular" class="img-fluid" alt="Image de {{ pokemon.name.fr}}">
+    <img [src]="isShiny ? pokemon.sprites.shiny : pokemon.sprites.regular" class="img-fluid" [attr.alt]="'Image de ' + pokemon.name.fr">
     <div class="shiny">
         <button (click)="toggleshiny()">
             <img src="https://cdn-icons-png.flaticon.com/256/2267/2267359.png" alt="Bouton pousser le pokemon en version shiny">
@@ -16,7 +16,7 @@
     <div class="row text-center justify-content-center mb-4">
         @for(type of pokemon.types; track type.name) {
             <div class="col-2">
-                <img src="{{type.image}}" alt="Image du type {{type.name}}">
+                <img src="{{type.image}}" [attr.alt]="'Image du type' + type.name">
                 <h4>{{type.name}}</h4>
             </div>
         }
@@ -137,6 +137,4 @@
             </div>
         }
     </div>
-
-
 </div>
