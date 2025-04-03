@@ -1,12 +1,13 @@
 <!-- Header -->
 <section class="header {{ pokemon.types[0].name | pokemonBgColor }}">
     <i class="fa-solid fa-arrow-left arrow-back" (click)="back()"></i>
-    <img [src]="isShiny ? pokemon.sprites.shiny : pokemon.sprites.regular" class="img-fluid" [attr.alt]="'Image de ' + pokemon.name.fr">
-    <div class="shiny">
-        <button (click)="toggleshiny()">
-            <img src="https://cdn-icons-png.flaticon.com/256/2267/2267359.png" alt="Bouton pousser le pokemon en version shiny">
-        </button>
-    </div>
+        <img [src]="isShiny ? pokemon.sprites.shiny : pokemon.sprites.regular" class="imgPokemon img-fluid" [attr.alt]="'Image de ' + pokemon.name.fr">
+        <div class="shiny">
+            <button class="shinyButton" (click)="toggleshiny()">
+                <img src="https://cdn-icons-png.flaticon.com/256/2267/2267359.png" alt="Bouton pousser le pokemon en version shiny">
+            </button>
+            <p>Cliquez !</p>
+        </div>
 </section>
 
 <div class="container">
@@ -23,7 +24,7 @@
     </div>
 
     <!-- Taille et poids -->
-    <div class="row text-center justify-content-center mb-4">
+    <div class="row text-center justify-content-center mb-4 border-bottom">
         <div class="col-6">
             <h4>{{pokemon.weight}}</h4>
             <h4>POIDS</h4>
@@ -116,20 +117,20 @@
             <h2 class="mb-5">Evolutions</h2>
             <div class="col-sm-4 col-12" *ngFor="let pre of pokemon.evolution.pre">
                 <a [routerLink]="['/pokemons', pre.pokedex_id]">
-                    <div class="evolution">
+                    <div class="evolution mb-4">
                         <h4>{{ pre.name }}</h4>
                     </div>
                 </a>
             </div>
             <div class="col-sm-4 col-12">
-                <div class="evolution">
+                <div class="evolution mb-4">
                     <a [routerLink]="['/pokemons', pokemon.pokedex_id]">
                         <h4>{{ pokemon.name.fr }}</h4>
                     </a>
                 </div>
             </div>
             <div class="col-sm-4 col-12" *ngFor="let next of pokemon.evolution.next">
-                <div class="evolution">
+                <div class="evolution mb-4">
                     <a [routerLink]="['/pokemons', next.pokedex_id]">
                         <h4>{{ next.name }}</h4>
                     </a>
