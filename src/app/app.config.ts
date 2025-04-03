@@ -6,18 +6,18 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(
-      routes,
-      withInMemoryScrolling({
-        anchorScrolling: 'enabled',
-        scrollPositionRestoration: 'enabled',
-      })
-    ),
-    provideHttpClient(), provideServiceWorker('ngsw-worker.js', {
+    providers: [
+        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideRouter(
+            routes,
+            withInMemoryScrolling({
+                anchorScrolling: 'enabled',
+                scrollPositionRestoration: 'enabled',
+            })
+        ),
+        provideHttpClient(), provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'
-          }),
-  ]
+        }),
+    ]
 };
